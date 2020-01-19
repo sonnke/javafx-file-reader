@@ -1,7 +1,10 @@
 package com.main.view;
 import javafx.application.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,10 +13,17 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import com.main.controller.*;
 public class MainUi extends Application{
+	TextField addInput = new TextField();
+	//Initiate Class
+	MainCtr ctr = new MainCtr("streamFile.txt");
+	
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		
 		//Layout
 		GridPane MainLayout = new GridPane();
 		
@@ -22,10 +32,14 @@ public class MainUi extends Application{
 		
 		//Filter input
 		TextField filterInput = new TextField();
-		TextField addInput = new TextField();
+		
 		Button addButton = new Button("Add");
 		Button filterButton = new Button("Filter");
 		ListView<String> listView = new ListView<String>(listValues);
+		
+			
+		//Add events
+		addButton.addEventHandler(ActionEvent.ACTION, addButtonEvent);
 		
 		
 		
@@ -50,6 +64,23 @@ public class MainUi extends Application{
 		stage.show();
 		
 	}
+	
+	
+	//Add button 
+	EventHandler<ActionEvent> addButtonEvent = new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO Auto-generated method stub			
+			String text = addInput.getText();
+			ctr.addUser(text);
+		}
+		
+	};
+	
+	
+	 
+	
 	
 	public static void main(String[] args){
 		
